@@ -4,6 +4,7 @@
 #include "qthelper.h"
 #include "settings/qPrefCloudStorage.h"
 #include <QApplication>
+#include <QDebug>
 
 CloudStorageAuthenticate::CloudStorageAuthenticate(QObject *parent) :
 	QObject(parent),
@@ -19,6 +20,9 @@ CloudStorageAuthenticate::CloudStorageAuthenticate(QObject *parent) :
 
 QNetworkReply* CloudStorageAuthenticate::backend(const QString& email,const QString& password,const QString& pin,const QString& newpasswd)
 {
+
+#if 0
+
 	QString payload(email + QChar(' ') + password);
 	QUrl requestUrl;
 	if (pin.isEmpty() && newpasswd.isEmpty()) {
@@ -37,14 +41,21 @@ QNetworkReply* CloudStorageAuthenticate::backend(const QString& email,const QStr
 	request->setHeader(QNetworkRequest::ContentTypeHeader, "text/plain");
 	reply = manager()->post(*request, qPrintable(payload));
 	connect(reply, SIGNAL(finished()), this, SLOT(uploadFinished()));
-	connect(reply, SIGNAL(sslErrors(QList<QSslError>)), this, SLOT(sslErrors(QList<QSslError>)));
-	connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), this,
+	//connect(reply, SIGNAL(sslErrors(QList<QSslError>)), this, SLOT(sslErrors(QList<QSslError>)));
+		connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), this,
 		SLOT(uploadError(QNetworkReply::NetworkError)));
 	return reply;
+
+#endif
+
+return NULL;
 }
 
 void CloudStorageAuthenticate::uploadFinished()
 {
+
+#if 0
+
 	static QString myLastError;
 
 	QString cloudAuthReply(reply->readAll());
@@ -74,6 +85,9 @@ void CloudStorageAuthenticate::uploadFinished()
 		report_error("%s", qPrintable(cloudAuthReply));
 	}
 	emit finishedAuthenticate();
+
+#endif
+
 }
 
 void CloudStorageAuthenticate::uploadError(QNetworkReply::NetworkError)
@@ -81,8 +95,11 @@ void CloudStorageAuthenticate::uploadError(QNetworkReply::NetworkError)
 	qDebug() << "Received error response from cloud storage backend:" << reply->errorString();
 }
 
+#if 0
+
 void CloudStorageAuthenticate::sslErrors(QList<QSslError> errorList)
 {
+
 	if (verbose) {
 		qDebug() << "Received error response trying to set up https connection with cloud storage backend:";
 		Q_FOREACH (QSslError err, errorList) {
@@ -101,7 +118,10 @@ void CloudStorageAuthenticate::sslErrors(QList<QSslError> errorList)
 		if (verbose)
 			qDebug() << "got invalid SSL certificate with hex digest" << hexDigest;
 	}
+
 }
+
+#endif
 
 QNetworkAccessManager *manager()
 {

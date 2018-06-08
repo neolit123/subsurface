@@ -225,9 +225,12 @@ if(BTSUPPORT)
 	list(APPEND QT_EXTRA_LIBRARIES Qt5::Bluetooth)
 endif()
 
-find_package(Qt5 REQUIRED COMPONENTS Core Concurrent Widgets Network Svg Test QuickTest LinguistTools Positioning Quick Location ${QT_EXTRA_COMPONENTS})
-set(QT_LIBRARIES Qt5::Core Qt5::Concurrent Qt5::Widgets Qt5::Network Qt5::Svg  Qt5::Positioning Qt5::Quick Qt5::Location ${QT_EXTRA_LIBRARIES})
-set(QT_TEST_LIBRARIES ${QT_LIBRARIES} Qt5::Test Qt5::QuickTest)
+# find_package(Qt5 REQUIRED COMPONENTS Core Concurrent Widgets Network Svg Test LinguistTools Positioning ${QT_EXTRA_COMPONENTS})
+# set(QT_LIBRARIES Qt5::Core Qt5::Concurrent Qt5::Widgets Qt5::Network Qt5::Svg  Qt5::Positioning ${QT_EXTRA_LIBRARIES})
+find_package(Qt5 REQUIRED COMPONENTS Core Concurrent Widgets Network LinguistTools ${QT_EXTRA_COMPONENTS})
+set(QT_LIBRARIES Qt5::Core Qt5::Concurrent Qt5::Widgets Qt5::Network ${QT_EXTRA_LIBRARIES})
+
+set(QT_TEST_LIBRARIES ${QT_LIBRARIES} Qt5::Test)
 
 #disable bluetooth if Qt version is ancient.
 if (BTSUPPORT AND Qt5Widgets_VERSION VERSION_LESS 5.4.0)
@@ -262,7 +265,7 @@ endif()
 
 #set up the subsurface_link_libraries variable
 set(SUBSURFACE_LINK_LIBRARIES ${SUBSURFACE_LINK_LIBRARIES} ${LIBDIVECOMPUTER_LIBRARIES} ${LIBGIT2_LIBRARIES} ${LIBUSB_LIBRARIES})
-qt5_add_resources(SUBSURFACE_RESOURCES subsurface.qrc map-widget/qml/map-widget.qrc)
+# qt5_add_resources(SUBSURFACE_RESOURCES subsurface.qrc map-widget/qml/map-widget.qrc)
 
 # include translations
 add_subdirectory(translations)
@@ -294,7 +297,7 @@ if(${SUBSURFACE_TARGET_EXECUTABLE} MATCHES "MobileExecutable")
 		subsurface-mobile-main.cpp
 		subsurface-helper.cpp
 		profile-widget/qmlprofile.cpp
-		map-widget/qmlmapwidgethelper.cpp
+#		map-widget/qmlmapwidgethelper.cpp
 	)
 	include_directories(${CMAKE_SOURCE_DIR}/mobile-widgets/qml/kirigami/src/libkirigami)
 	add_definitions(-DKIRIGAMI_BUILD_TYPE_STATIC)

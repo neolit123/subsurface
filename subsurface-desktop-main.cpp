@@ -23,8 +23,8 @@
 #include <QOffscreenSurface>
 #include <QOpenGLContext>
 #include <QOpenGLFunctions>
-#include <QQuickWindow>
 #include <QStringList>
+// #include <QQuickWindow>
 #include <git2.h>
 
 static bool filesOnCommandLine = false;
@@ -136,6 +136,9 @@ bool haveFilesOnCommandLine()
 
 void validateGL()
 {
+
+#if 0
+
 	QString quickBackend = qgetenv("QT_QUICK_BACKEND");
 	/* an empty QT_QUICK_BACKEND env. variable means OpenGL (default).
 	 * only validate OpenGL; for everything else print out and return.
@@ -225,6 +228,9 @@ exit:
 		QQuickWindow::setSceneGraphBackend(QSGRendererInterface::Software);
 #endif
 	}
+	
+
+#endif
 }
 
 // install this message handler primarily so that the Windows build can log to files

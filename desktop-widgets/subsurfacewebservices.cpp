@@ -373,7 +373,6 @@ void WebServices::resetState()
 	ui.buttonBox->button(QDialogButtonBox::Apply)->setText(defaultApplyText);
 }
 
-
 // #
 // #
 // #		Divelogs DE  Web Service Implementation.

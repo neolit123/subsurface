@@ -4,7 +4,7 @@
 #include "core/pref.h"
 
 #include <QObject>
-#include <QQmlEngine>
+// #include <QQmlEngine>
 
 class qPref : public QObject {
 	Q_OBJECT
@@ -20,7 +20,7 @@ public:
 	static void sync() { loadSync(true); }
 
 	// Register QML
-	void registerQML(QQmlEngine *engine);
+//	void registerQML(QQmlEngine *engine);
 
 public:
 	static const QString canonical_version();

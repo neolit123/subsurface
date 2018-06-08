@@ -61,7 +61,7 @@ set(SUBSURFACE_CORE_LIB_SRCS
 	gas-model.c
 	gettextfromc.cpp
 	git-access.c
-	gpslocation.cpp
+#	gpslocation.cpp
 	imagedownloader.cpp
 	isocialnetworkintegration.cpp
 	libdivecomputer.c

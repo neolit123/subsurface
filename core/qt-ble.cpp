@@ -21,7 +21,7 @@
 #include "core/subsurface-string.h"
 
 #define BLE_TIMEOUT 12000 // 12 seconds seems like a very long time to wait
-#define DEBUG_THRESHOLD 50
+#define DEBUG_THRESHOLD 1
 static int debugCounter;
 
 #define IS_HW(_d) same_string((_d)->vendor, "Heinrichs Weikamp")
@@ -77,7 +77,8 @@ void BLEObject::characteristcStateChanged(const QLowEnergyCharacteristic &c, con
 
 void BLEObject::characteristicWritten(const QLowEnergyCharacteristic &c, const QByteArray &value)
 {
-	if (IS_HW(device)) {
+        qDebug() << "characteristicWritten" << c.uuid() << value.toHex();
+        if (IS_HW(device)) {
 		if (c.uuid() == hwAllCharacteristics[HW_OSTC_BLE_CREDITS_RX]) {
 			bool ok;
 			hw_credit += value.toHex().toInt(&ok, 16);
@@ -89,7 +90,7 @@ void BLEObject::characteristicWritten(const QLowEnergyCharacteristic &c, const Q
 	}
 }
 
-void BLEObject::writeCompleted(const QLowEnergyDescriptor&, const QByteArray&)
+void BLEObject::writeCompleted(const QLowEnergyDescriptor&, const QByteArray &ba)
 {
 	qDebug() << "BLE write completed";
 	desc_written++;
@@ -195,6 +196,8 @@ dc_status_t BLEObject::write(const void *data, size_t size, size_t *actual)
 
 dc_status_t BLEObject::read(void *data, size_t size, size_t *actual)
 {
+	qDebug() << "read" << size;
+	
 	if (actual)
 		*actual = 0;
 	if (receivedPackets.isEmpty()) {
@@ -383,7 +386,7 @@ static int use_random_address(dc_user_device_t *user_device)
 dc_status_t qt_ble_open(void **io, dc_context_t *, const char *devaddr, dc_user_device_t *user_device)
 {
 	debugCounter = 0;
-	QLoggingCategory::setFilterRules(QStringLiteral("qt.bluetooth* = true"));
+        QLoggingCategory::setFilterRules(QStringLiteral("qt.bluetooth*=true"));
 
 	/*
 	 * LE-only devices get the "LE:" prepended by the scanning
@@ -511,10 +514,12 @@ dc_status_t qt_ble_close(void *io)
 }
 static void checkThreshold()
 {
-	if (++debugCounter == DEBUG_THRESHOLD) {
+        /*
+    if (++debugCounter == DEBUG_THRESHOLD) {
 		QLoggingCategory::setFilterRules(QStringLiteral("qt.bluetooth* = false"));
 		qDebug() << "turning off further BT debug output";
 	}
+        */
 }
 
 /*
@@ -530,7 +535,7 @@ dc_status_t qt_ble_set_timeout(void *io, int timeout)
 
 dc_status_t qt_ble_read(void *io, void* data, size_t size, size_t *actual)
 {
-	checkThreshold();
+        checkThreshold();
 	BLEObject *ble = (BLEObject *) io;
 	return ble->read(data, size, actual);
 }

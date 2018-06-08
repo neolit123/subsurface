@@ -9,7 +9,7 @@
 #include <QtConcurrentRun>
 #include <QFuture>
 #include <QDir>
-#include <QCryptographicHash>
+// #include <QCryptographicHash>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include "desktop-widgets/mainwindow.h"

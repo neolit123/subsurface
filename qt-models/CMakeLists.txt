@@ -7,7 +7,7 @@ set(SUBSURFACE_GENERIC_MODELS_LIB_SRCS
 	diveimportedmodel.cpp
 	completionmodels.cpp
 	divelocationmodel.cpp
-	maplocationmodel.cpp
+#	maplocationmodel.cpp
 )
 
 # models exclusively used in desktop builds

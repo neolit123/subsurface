@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: GPL-2.0
-#include <QQmlEngine>
+// #include <QQmlEngine>
 #include <QDesktopWidget>
 #include <QApplication>
 #include <QDebug>
-#include <QQuickItem>
+// #include <QQuickItem>
 
-#include "map-widget/qmlmapwidgethelper.h"
-#include "qt-models/maplocationmodel.h"
+// #include "map-widget/qmlmapwidgethelper.h"
+// #include "qt-models/maplocationmodel.h"
 #include "core/qt-gui.h"
 #include "core/settings/qPref.h"
 #include "core/ssrf.h"
@@ -32,15 +32,15 @@
 QObject *qqWindowObject = NULL;
 
 // Forward declaration
-static void register_qml_types(QQmlEngine *);
-static void register_meta_types();
+// static void register_qml_types(QQmlEngine *);
+// static void register_meta_types();
 
 void init_ui()
 {
 	init_qt_late();
-	register_meta_types();
+	// register_meta_types();
 #ifndef SUBSURFACE_MOBILE
-	register_qml_types(NULL);
+// 	register_qml_types(NULL);
 	PluginManager::instance().loadPlugins();
 
 	MainWindow *window = new MainWindow();
@@ -145,22 +145,46 @@ void run_ui()
 	qApp->exec();
 }
 
+#endif // not SUBSURFACE_TEST_DATA
+
+/*
 Q_DECLARE_METATYPE(duration_t)
 static void register_meta_types()
 {
 	qRegisterMetaType<duration_t>();
 }
-#endif // not SUBSURFACE_TEST_DATA
+*/
 
+/*
 #define REGISTER_TYPE(useClass, useQML) \
 	rc = qmlRegisterType<useClass>("org.subsurfacedivelog.mobile", 1, 0, useQML); \
 	if (rc < 0) \
 		qWarning() << "ERROR: Cannot register " << useQML << ", QML will not work!!";
+*/
 
+
+	/*
 void register_qml_types(QQmlEngine *engine)
 {
+
 	// register qPref*
 	qPref::instance()->registerQML(engine);
+	int rc;
+	REGISTER_TYPE(qPref, "SsrfPrefs");
+	REGISTER_TYPE(qPrefCloudStorage, "SsrfCloudStoragePrefs");
+	REGISTER_TYPE(qPrefDisplay, "SsrfDisplayPrefs");
+	REGISTER_TYPE(qPrefDiveComputer, "SsrfDiveComputerPrefs");
+	REGISTER_TYPE(qPrefDivePlanner, "SsrfDivePlannerPrefs");
+	REGISTER_TYPE(qPrefFacebook, "SsrfFacebookPrefs");
+	REGISTER_TYPE(qPrefGeneral, "SsrfGeneralPrefs");
+	REGISTER_TYPE(qPrefGeocoding, "SsrfGeocodingPrefs");
+	REGISTER_TYPE(qPrefLanguage, "SsrfLanguagePrefs");
+	REGISTER_TYPE(qPrefLocationService, "SsrfLocationServicePrefs");
+	REGISTER_TYPE(qPrefPartialPressureGas, "SsrfPartialPressureGasPrefs");
+	REGISTER_TYPE(qPrefProxy, "SsrfProxyPrefs");
+	REGISTER_TYPE(qPrefTechnicalDetails, "SsrfTechnicalDetailsPrefs");
+	REGISTER_TYPE(qPrefUnits, "SsrfUnitPrefs");
+	REGISTER_TYPE(qPrefUpdateManager, "SsrfUpdateManagerPrefs");
 
 #ifndef SUBSURFACE_TEST_DATA
 	int rc;
@@ -177,4 +201,6 @@ void register_qml_types(QQmlEngine *engine)
 	REGISTER_TYPE(MapLocationModel, "MapLocationModel");
 	REGISTER_TYPE(MapLocation, "MapLocation");
 #endif // not SUBSURFACE_TEST_DATA
+
 }
+*/

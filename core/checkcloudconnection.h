@@ -15,7 +15,8 @@ private:
 	QNetworkReply *reply;
 private
 slots:
-	void sslErrors(QList<QSslError> errorList);
+// void sslErrors(QList<QSslError> errorList);
+void sslErrors();
 };
 
 #endif // CHECKCLOUDCONNECTION_H

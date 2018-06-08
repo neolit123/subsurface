@@ -3,17 +3,18 @@
 #define MAPWIDGET_H
 
 #include "core/units.h"
-#include <QQuickWidget>
+// #include <QQuickWidget>
+#include <QWidget>
 #include <QList>
 
 #undef IGNORE
 
 class QResizeEvent;
-class QQuickItem;
+// class QQuickItem;
 class MapWidgetHelper;
 struct dive_site;
 
-class MapWidget : public QQuickWidget {
+class MapWidget : public QWidget {
 
 	Q_OBJECT
 
@@ -36,13 +37,13 @@ public slots:
 	void prepareForGetDiveCoordinates(uint32_t uuid);
 	void selectedDivesChanged(QList<int>);
 	void coordinatesChangedLocal(const location_t &);
-	void doneLoading(QQuickWidget::Status status);
+	// void doneLoading(QQuickWidget::Status status);
 	void updateDiveSiteCoordinates(uint32_t uuid, const location_t &);
 
 private:
 	static MapWidget *m_instance;
-	QQuickItem *m_rootItem;
-	MapWidgetHelper *m_mapHelper;
+// 	QQuickItem *m_rootItem;
+//	MapWidgetHelper *m_mapHelper;
 };
 
 #endif // MAPWIDGET_H

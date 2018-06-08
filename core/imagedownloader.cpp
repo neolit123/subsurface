@@ -11,7 +11,7 @@
 #include <QString>
 #include <QImageReader>
 #include <QDataStream>
-#include <QSvgRenderer>
+// #include <QSvgRenderer>
 #include <QPainter>
 
 #include <QtConcurrent>
@@ -156,11 +156,17 @@ Thumbnailer::Thumbnail Thumbnailer::getHashedImage(const QString &filename, bool
 
 static QImage renderIcon(const char *id, int size)
 {
+/*
 	QImage res(size, size, QImage::Format_RGB32);
 	res.fill(Qt::white);
 	QSvgRenderer svg{QString(id)};
 	QPainter painter(&res);
 	svg.render(&painter);
+*/
+	QImage res(size, size, QImage::Format_ARGB32);
+	// QSvgRenderer svg{QString(id)};
+	// QPainter painter(&res);
+	// svg.render(&painter);
 	return res;
 }
 
@@ -168,12 +174,13 @@ static QImage renderIcon(const char *id, int size)
 // and have a transparent background.
 static QImage renderIconWidth(const char *id, int size)
 {
-	QSvgRenderer svg{QString(id)};
-	QSize svgSize = svg.defaultSize();
-	QImage res(size, size * svgSize.height() / svgSize.width(), QImage::Format_ARGB32);
-	QPainter painter(&res);
-	svg.render(&painter);
-	return res;
+	// QSvgRenderer svg{QString(id)};
+	// QSize svgSize = svg.defaultSize();
+	//QImage res(size, size * svgSize.height() / svgSize.width(), QImage::Format_ARGB32);
+	//QPainter painter(&res);
+	//svg.render(&painter);
+	// return res;
+	return QImage(size, size, QImage::Format_ARGB32);
 }
 
 Thumbnailer::Thumbnailer() : failImage(renderIcon(":filter-close", maxThumbnailSize())), // TODO: Don't misuse filter close icon

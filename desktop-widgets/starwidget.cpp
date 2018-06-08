@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0
 #include "desktop-widgets/starwidget.h"
 #include "core/metrics.h"
-#include <QSvgRenderer>
+// #include <QSvgRenderer>
 #include <QMouseEvent>
 #include "desktop-widgets/simplewidgets.h"
 
@@ -98,13 +98,13 @@ StarWidget::StarWidget(QWidget *parent, Qt::WindowFlags f) : QWidget(parent, f),
 	int dim = defaultIconMetrics().sz_small;
 
 	if (activeStar.isNull()) {
-		QSvgRenderer render(QString(":star-icon"));
+		// QSvgRenderer render(QString(":star-icon"));
 		QPixmap renderedStar(dim, dim);
 
 		renderedStar.fill(Qt::transparent);
 		QPainter painter(&renderedStar);
 
-		render.render(&painter, QRectF(0, 0, dim, dim));
+		// render.render(&painter, QRectF(0, 0, dim, dim));
 		activeStar = renderedStar.toImage();
 	}
 	if (inactiveStar.isNull()) {

@@ -4,6 +4,7 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QEventLoop>
+#include <QDebug>
 
 #include "pref.h"
 #include "qthelper.h"
@@ -26,6 +27,8 @@ bool CheckCloudConnection::checkServer()
 {
 	if (verbose)
 		fprintf(stderr, "Checking cloud connection...\n");
+
+#if 0
 
 	QTimer timer;
 	timer.setSingleShot(true);
@@ -73,11 +76,17 @@ bool CheckCloudConnection::checkServer()
 	mgr->deleteLater();
 	if (verbose)
 		qWarning() << "Cloud storage: unable to connect to cloud server";
+
+#endif
+
 	return false;
 }
 
-void CheckCloudConnection::sslErrors(QList<QSslError> errorList)
+void CheckCloudConnection::sslErrors()
+//void CheckCloudConnection::sslErrors(QList<QSslError> errorList)
 {
+#if 0
+
 	if (verbose) {
 		qDebug() << "Received error response trying to set up https connection with cloud storage backend:";
 		Q_FOREACH (QSslError err, errorList) {
@@ -96,6 +105,7 @@ void CheckCloudConnection::sslErrors(QList<QSslError> errorList)
 		if (verbose)
 			qDebug() << "got invalid SSL certificate with hex digest" << hexDigest;
 	}
+#endif
 }
 
 // helper to be used from C code

@@ -17,8 +17,8 @@
 #include "qPrefUpdateManager.h"
 #include "ssrf-version.h"
 
-#include <QtQml>
-#include <QQmlContext>
+// #include <QtQml>
+// #include <QQmlContext>
 
 qPref::qPref(QObject *parent) : QObject(parent)
 {
@@ -66,6 +66,8 @@ void qPref::loadSync(bool doSync)
 Q_DECLARE_METATYPE(deco_mode);
 Q_DECLARE_METATYPE(def_file_behavior);
 Q_DECLARE_METATYPE(taxonomy_category);
+/*
+
 void qPref::registerQML(QQmlEngine *engine)
 {
 	if (engine) {
@@ -94,3 +96,4 @@ void qPref::registerQML(QQmlEngine *engine)
 	qRegisterMetaType<def_file_behavior>();
 	qRegisterMetaType<taxonomy_category>();
 }
+*/

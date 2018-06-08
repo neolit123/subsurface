@@ -1015,6 +1015,9 @@ void DiveListView::loadWebImages()
 
 void DiveListView::loadImageFromURL(QUrl url)
 {
+
+#if 0
+
 	if (url.isValid()) {
 		QEventLoop loop;
 		QNetworkRequest request(url);
@@ -1033,7 +1036,6 @@ void DiveListView::loadImageFromURL(QUrl url)
 			report_error(qPrintable(tr("%1 does not appear to be an image").arg(url.toString())));
 			return;
 		}
-
 		QCryptographicHash hash(QCryptographicHash::Sha1);
 		hash.addData(url.toString().toUtf8());
 		QString path = QStandardPaths::standardLocations(QStandardPaths::CacheLocation).first();
@@ -1050,6 +1052,8 @@ void DiveListView::loadImageFromURL(QUrl url)
 			matchImagesToDives(QStringList(url.toString()));
 		}
 	}
+
+#endif
 }
 
 void DiveListView::filterFinished()
